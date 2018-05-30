@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {API_URL} from '../../app.constants';
 
 import { WeightModel } from './WeightModel';
+import { WeightService } from '../../services/weight.service';
+import {Subscriber} from "rxjs/index";
 
 @Component({
   selector: 'ww-weight',
@@ -11,23 +11,18 @@ import { WeightModel } from './WeightModel';
 })
 export class WeightComponent implements OnInit {
 
-  apiURL: string;
-  weights: WeightModel[];
+  weights = this.weightService.weights;
 
-  constructor(private http: HttpClient) {
+  time = this.weightService.time;
+
+  constructor( private weightService: WeightService) {
   }
 
   ngOnInit() {
 
-    this.apiURL = API_URL; //'https://api.thingspeak.com/channels/430454/feeds.json?api_key=0TFBKM2JT37VDIL3';
-    this.getAllWeights();
+    // this.apiURL = API_URL; //'https://api.thingspeak.com/channels/430454/feeds.json?api_key=0TFBKM2JT37VDIL3';
 
-  }
 
-  getAllWeights() {
-    this.http.get(this.apiURL).subscribe((data) => {
-      this.weights = data['feeds'];
-    });
   }
 
 }
