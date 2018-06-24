@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ADD_API_URL } from '../../app.constants';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {WeightService} from "../../services/weight.service";
 
 @Component({
   selector: 'ww-add-weight',
@@ -9,23 +9,21 @@ import { ADD_API_URL } from '../../app.constants';
 })
 export class AddWeightComponent implements OnInit {
 
-  weightInput:number;
-  addApiURL = ADD_API_URL;
+  weightInput: number;
+  loading:boolean;
 
-  constructor(private http: HttpClient) { }
-
-  ngOnInit() {
+  constructor(private http: HttpClient, private weightsService: WeightService) {
   }
 
-  addWeightToAPI(){
-    if(this.weightInput !== undefined && this.weightInput !== null && this.weightInput >= 1 && this.weightInput <= 250) {
-      this.http.get(this.addApiURL + this.weightInput).subscribe((data) => {
-        console.log(data);
-      });
+  ngOnInit() {
+    this.weightsService.isLoading().subscribe((res)=>{
+      this.loading = res;
+    });
+  }
 
-    } else {
-      console.info('NICHT OK');
-    }
+  addWeightToAPI() {
+    this.weightsService.addWeight(this.weightInput);
+    this.weightInput = null;
   }
 
 }

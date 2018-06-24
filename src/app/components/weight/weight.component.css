@@ -1,0 +1,10 @@
+.time-info {
+  display: inline;
+  font-size: 0.7rem;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  margin-left: 15px;
+}
+
+.time-info:hover {
+  display: inline;
+}

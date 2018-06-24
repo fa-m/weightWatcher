@@ -4,3 +4,4 @@ export class WeightModel {
   field1:number;
 }
 
+
